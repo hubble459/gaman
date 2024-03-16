@@ -1,0 +1,25 @@
+support:
+  selectors:
+    - '[href*=madara]'
+    - '[content*=madara]'
+    - 'script#madara-core-js'
+    - '[src*=madara]'
+    - body.wp-manga-template-default
+  hostnames:
+    - isekaiscan.top
+
+title:
+  - selector: div.post-title h1
+    capitalize: title
+  - selector: div#manga-title h1
+    capitalize: title
+  - selector: h1
+    capitalize: title
+summary:
+  - selector: div.summary__content
+  - selector: h5:contains(Summary) + div p
+cover_url:
+  - selector: div.summary_image img
+    text_type: attribute
+    attributes:
+      - src
