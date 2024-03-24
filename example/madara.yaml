@@ -15,11 +15,28 @@ title:
     capitalize: title
   - selector: h1
     capitalize: title
+
 summary:
   - selector: div.summary__content
   - selector: h5:contains(Summary) + div p
+
 cover_url:
+  - selector: meta[property='og:image']
+    text_type: attribute
+    attributes:
+      - content
   - selector: div.summary_image img
     text_type: attribute
     attributes:
       - src
+
+status:
+    - selector: div.post-status div + div div.summary-content
+    - selector: div.post-status div.summary-content
+
+authors:
+  - selector: div.author-content a
+genres:
+  - selector: div.genres-content a
+alternative_titles:
+  - selector: div.summary-heading::has(h5::icontains(alternative)) + div

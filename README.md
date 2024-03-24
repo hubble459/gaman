@@ -1,39 +1,37 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# gaman
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A Dart package for parsing manga information from various sources, including websites using the WordPress Madara theme and MangaDex. The library utilizes a variety of methods to collect manga data, making it versatile and comprehensive.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- Scrapes manga information from websites using the WordPress Madara theme.
+- Fetches data from MangaDex, a popular manga reading platform.
+- HTML Scrapers are based on easily configurable YAML files, allowing for quick and continuous updates when target sites are updated.
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+To start using this package, add `gaman` to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  gaman: ^1.0.0
+```
+
+Then run dart pub get or flutter pub get to install the package.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
 ```dart
-const like = 'sample';
+import 'package:gaman/gaman.dart';
+
+void main() {
+  // Example usage
+}
 ```
 
-## Additional information
+For detailed usage and examples, see the [documentation]().
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+## Additional Information
+
+For more information, visit the [package on pub.dev]().
+To contribute to the package, file issues, or find more information, visit the [GitHub repository](https://github.com/hubble459/gaman).

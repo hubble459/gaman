@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:gaman/src/json_converter/list_converter.dart';
-import 'package:gaman/src/scraper/base/selector.dart';
+import 'package:gaman/src/scraper/base/config/list_selector.dart';
+import 'package:gaman/src/scraper/base/config/selector.dart';
 
 part 'config.freezed.dart';
 part 'config.g.dart';
@@ -21,7 +22,11 @@ class Config with _$Config {
     required Support support,
     @ListConverter() required List<Selector> title,
     @ListConverter() required List<Selector> summary,
-    @JsonKey(name: "cover_url") @ListConverter() required List<Selector> coverUrl,
+    @ListConverter() @Default([]) List<Selector> status,
+    @JsonKey(name: "cover_url") @ListConverter() @Default([]) List<Selector> coverUrl,
+    @ListConverter() @Default([]) List<ListSelector> authors,
+    @ListConverter() @Default([]) List<ListSelector> genres,
+    @JsonKey(name: "alternative_titles") @ListConverter() @Default([]) List<ListSelector> alternativeTitles,
   }) = _Config;
 
   factory Config.fromJson(Map<String, Object?> json) => _$ConfigFromJson(json);

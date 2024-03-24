@@ -38,18 +38,24 @@ class ConfigScraper extends HtmlScraper {
   Future<Manga> parseManga(Uri url, {Document? doc}) async {
     doc ??= await HtmlScraper.fetch(url);
 
-    final title = selectRequiredText(url, doc, config.title, "Title is missing");
+    final title = require(selectText(url, doc, config.title), "Title is missing");
     final summary = selectText(url, doc, config.summary) ?? "";
     final status = selectText(url, doc, config.status) ?? "Unknown";
+    final coverUrl = selectUrl(url, doc, config.coverUrl);
+    final authors = selectList(url, doc, config.authors);
+    final genres = selectList(url, doc, config.genres);
+    final alternativeTitles = selectList(url, doc, config.alternativeTitles);
 
-    final coverUrlStr = selectText(url, doc, config.coverUrl);
-    final coverUrl = coverUrlStr == null ? null : url.resolve(coverUrlStr);
-
-    print(title);
-    print(summary);
-    print(coverUrl);
-
-    return Manga(url: url, title: title, summary: summary, coverUrl: coverUrl, status: status);
+    return Manga(
+      url: url,
+      title: title,
+      summary: summary,
+      coverUrl: coverUrl,
+      status: status,
+      authors: authors,
+      genres: genres,
+      alternativeTitles: alternativeTitles,
+    );
   }
 
   List<String> parseListSelectors(Uri url, Document doc, List<Selector> selectors) {

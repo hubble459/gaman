@@ -1,4 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:gaman/src/json_converter/pseudom_converter.dart';
+import 'package:pseudom/pseudom.dart' as pseudom;
 
 part 'selector.freezed.dart';
 part 'selector.g.dart';
@@ -21,11 +23,11 @@ enum Capitalize {
 @freezed
 class Selector with _$Selector {
   const factory Selector({
-    required String selector,
+    @PseudomConverter() required pseudom.SelectorGroups selector,
     @Default(Capitalize.skip) Capitalize capitalize,
-    @JsonValue("text_type") @Default(TextType.allText) TextType textType,
+    @JsonKey(name: "text_type") @Default(TextType.allText) TextType textType,
     // Used when TextType is allText to join multiple text nodes into one
-    @Default("\n") String joinString,
+    @JsonKey(name: "join_string") @Default("\n") String joinString,
     @Default([]) List<String> attributes,
     @Default(true) bool trim,
   }) = _Selector;

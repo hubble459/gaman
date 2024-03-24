@@ -5,6 +5,7 @@ import 'package:html/dom.dart';
 abstract class HtmlScraper extends BaseScraper {
   static Future<Document> fetch(Uri url) async {
     final String html = await BaseScraper.fetch(url);
+
     return html_parser.parse(html, sourceUrl: url.toString());
   }
 

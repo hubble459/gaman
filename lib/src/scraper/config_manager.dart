@@ -10,7 +10,6 @@ class ConfigManager extends HtmlScraper {
     for (final config in configFiles) {
       scrapers.add(ConfigScraper(Config.fromJson(config)));
     }
-    print(scrapers.map((e) => e.config));
   }
 
   @override
@@ -43,7 +42,6 @@ class ConfigManager extends HtmlScraper {
   @override
   Future<List<Uri>> parseImages(Uri url) async {
     Document doc;
-    print(cachedDoc?.sourceSpan?.sourceUrl);
     if (cachedDoc?.sourceSpan?.sourceUrl == url) {
       doc = cachedDoc!;
     } else {
