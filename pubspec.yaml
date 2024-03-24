@@ -1,5 +1,5 @@
 name: gaman
-description: A starting point for Dart libraries or applications.
+description: A Dart package for parsing manga information from various sources, including websites using the WordPress Madara theme and MangaDex. The library utilizes a variety of methods to collect manga data, making it versatile and comprehensive.
 version: 1.0.0
 publish_to: none
 repository: https://github.com/hubble459/gaman
