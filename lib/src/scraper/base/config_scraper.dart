@@ -29,22 +29,26 @@ class ConfigScraper extends HtmlScraper {
   }
 
   @override
-  Future<List<Uri>> parseImages(Uri url, {Document? doc}) {
-    // TODO: implement parseImages
-    throw UnimplementedError();
+  Future<List<Uri>> parseImages(Uri url, {Document? doc}) async {
+    doc ??= await HtmlScraper.fetch(url);
+
+    final element = await fetchExternal(url, doc.documentElement!, config.images.fetchExternal);
+    return selectUrls(url, element, config.images.image);
   }
 
   @override
   Future<Manga> parseManga(Uri url, {Document? doc}) async {
     doc ??= await HtmlScraper.fetch(url);
+    final element = doc.documentElement!;
 
-    final title = require(selectText(url, doc, config.title), "Title is missing");
-    final summary = selectText(url, doc, config.summary) ?? "";
-    final status = selectText(url, doc, config.status) ?? "Unknown";
-    final coverUrl = selectUrl(url, doc, config.coverUrl);
-    final authors = selectList(url, doc, config.authors);
-    final genres = selectList(url, doc, config.genres);
-    final alternativeTitles = selectList(url, doc, config.alternativeTitles);
+    final title = require(selectText(element, config.title), "Title is missing");
+    final summary = selectText(element, config.summary) ?? "";
+    final status = selectText(element, config.status) ?? "Unknown";
+    final coverUrl = selectUrl(url, element, config.coverUrl);
+    final authors = selectList(url, element, config.authors);
+    final genres = selectList(url, element, config.genres);
+    final alternativeTitles = selectList(url, element, config.alternativeTitles);
+    final chapters = await selectChapters(url, element, config.chapters);
 
     return Manga(
       url: url,
@@ -55,6 +59,7 @@ class ConfigScraper extends HtmlScraper {
       authors: authors,
       genres: genres,
       alternativeTitles: alternativeTitles,
+      chapters: chapters,
     );
   }
 

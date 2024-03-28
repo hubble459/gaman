@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:gaman/src/json_converter/list_converter.dart';
+import 'package:gaman/src/scraper/base/config/chapter_selector.dart';
+import 'package:gaman/src/scraper/base/config/fetch_external.dart';
 import 'package:gaman/src/scraper/base/config/list_selector.dart';
 import 'package:gaman/src/scraper/base/config/selector.dart';
 
@@ -17,9 +19,21 @@ class Support with _$Support {
 }
 
 @freezed
+class Images with _$Images {
+  const factory Images({
+    @Default([]) List<Selector> image,
+    @ListConverter() @JsonKey(name: "fetch_external") @Default([]) List<FetchExternal> fetchExternal,
+  }) = _Images;
+
+  factory Images.fromJson(Map<String, Object?> json) => _$ImagesFromJson(json);
+}
+
+@freezed
 class Config with _$Config {
   const factory Config({
     required Support support,
+    required Images images,
+    required ChapterSelector chapters,
     @ListConverter() required List<Selector> title,
     @ListConverter() required List<Selector> summary,
     @ListConverter() @Default([]) List<Selector> status,

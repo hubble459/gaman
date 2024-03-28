@@ -31,12 +31,72 @@ cover_url:
       - src
 
 status:
-    - selector: div.post-status div + div div.summary-content
-    - selector: div.post-status div.summary-content
+  - selector: div.post-status div + div div.summary-content
+  - selector: div.post-status div.summary-content
 
 authors:
   - selector: div.author-content a
+
 genres:
   - selector: div.genres-content a
+
 alternative_titles:
-  - selector: div.summary-heading::has(h5::icontains(alternative)) + div
+  - selector: div.summary-heading:has(h5:icontains(alternative)) + div
+
+chapters:
+  fetch_external:
+    - id:
+        - selector: script:icontains('mangaid')
+      regex: var mangaID = '(?<id>\d+)';
+      url: /ajax-list-chapter?mangaID={id}
+
+    - id:
+        - selector: 'link[rel=canonical][href*=mangasushi], link[rel=canonical][href*=manga68],  link[rel=canonical][href*=mangafoxfull]'
+          text_type: attribute
+          attributes:
+            - href
+      regex: /manga/(?<id>[^/]+)/
+      url: 'https://{host}/manga/{id}/ajax/chapters/'
+      method: post
+
+  date_formats:
+    - 'dd MMMM, yyyy'
+    - 'dd MMMM، yyyy'
+    - 'MMMM dd, yyyy'
+    - 'MMM dd, yyyy'
+    - 'dd MMM hh:mm'
+    - 'dd/MM/yyyy'
+    - 'dd MMMM hh:mm'
+
+  base:
+    - selector: li.wp-manga-chapter
+  title:
+    - selector: a
+  url:
+    - selector: a
+      text_type: attribute
+      attributes:
+        - href
+  number:
+    - selector: span.chapter-number
+  date:
+    - selector: span.chapter-release-date i
+    - selector: span.chapter-release-date a
+      text_type: attribute
+      attributes:
+        - title
+
+images:
+  image:
+    - selector: img.wp-manga-chapter-img
+      text_type: attribute
+      attributes:
+        - data-src
+        - src
+      split_string: null
+    - selector: p#arraydata
+      split_string: ','
+    - selector: div.reading-content img
+      text_type: attribute
+      attributes:
+        - src

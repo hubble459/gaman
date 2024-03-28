@@ -3,8 +3,8 @@ import 'package:html/parser.dart' as html_parser;
 import 'package:html/dom.dart';
 
 abstract class HtmlScraper extends BaseScraper {
-  static Future<Document> fetch(Uri url) async {
-    final String html = await BaseScraper.fetch(url);
+  static Future<Document> fetch(Uri url, {Method method = Method.get}) async {
+    final String html = await BaseScraper.fetch(url, method: method);
 
     return html_parser.parse(html, sourceUrl: url.toString());
   }

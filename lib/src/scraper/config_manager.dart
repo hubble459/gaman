@@ -25,7 +25,7 @@ class ConfigManager extends HtmlScraper {
   ConfigScraper? find(Uri url, Document doc) {
     cachedDoc = doc;
 
-    final found = scrapers.firstWhereOrNull((scraper) => scraper.isSupported(url));
+    final found = findWithoutDoc(url);
     if (found != null) {
       return found;
     }
@@ -37,6 +37,10 @@ class ConfigManager extends HtmlScraper {
     }
 
     return null;
+  }
+
+  ConfigScraper? findWithoutDoc(Uri url) {
+    return scrapers.firstWhereOrNull((scraper) => scraper.isSupported(url));
   }
 
   @override
